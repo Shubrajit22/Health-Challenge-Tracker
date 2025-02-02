@@ -1,0 +1,16 @@
+
+.navbar{
+    display:flex;
+    justify-content:space-between ;
+   
+    height: 120px;
+   
+
+}
+img{
+    height:120px;
+    width:120px
+}
+h2{
+    padding-top: 15px;
+}

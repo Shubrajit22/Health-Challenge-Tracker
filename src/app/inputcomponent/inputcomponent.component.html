@@ -1,30 +1,75 @@
-  <div class="container">
-    <div class="form-group">
-      <input type="text" placeholder="Name">
-    </div>
+<hr>
+<form (ngSubmit)="onSubmit()">
+  <label for="name">Name:</label>
+  <input type="text" id="name" [(ngModel)]="name1" name="name" required><br><br>
 
-    <div class="form-group">
-      <label for="workout-type">Select Workout Type:</label>
-      <select id="workout-type">
-        <option value="">-- Select --</option>
-        <option value="running">Running</option>
-        <option value="walking">Walking</option>
-        <option value="swimming">Swimming</option>
-      </select>
-    </div>
+  <label for="workout">Workout Type:</label>
+  <input type="text" id="workout" [(ngModel)]="workout" name="workout" required><br><br>
 
-    <div class="form-group">
-      <label for="Duration">Select Duration:</label>
-      <select id="workout-duration"> 
-        <option value="">-- Select --</option>
-        <option value="15">15 mins</option>
-        <option value="20">20 mins</option>
-        <option value="30">30 mins</option>
-        <option value="40">40 mins</option>
-        <option value="60">60 mins</option>
-      </select>
-    </div>
+  <label for="minutes">Minutes:</label>
+  <input type="number" id="minutes" [(ngModel)]="minutes" name="minutes" required min="1"><br><br>
 
-    <div>
-      <input type="button" value="Submit">Add workout</div>
+  <button type="submit">Submit</button>
+</form>
+<hr>
+<div>
+  <h2>Users Workout List</h2>
+  
+  <div class="filter">
+    <input class="filter_name" type="text" placeholder="Filter By Name" (keyup)="applyFilter($event)"> 
+    
+    <select class="filter_select" [(ngModel)]="filterWorkoutType" (ngModelChange)="filterByWorkoutType($event)">
+      <option value="" disabled selected>Select Workout Type</option>
+      <option value="Running">Running</option>
+      <option value="Cycling">Cycling</option>
+      <option value="Swimming">Swimming</option>
+      <option value="Yoga">Yoga</option>
+    </select>
   </div>
+  <hr>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef="let c of displayedColumns"> Name </th>
+      <td mat-cell *matCellDef="let element of dataSource"> {{ element.name }} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="workout">
+      <th mat-header-cell *matHeaderCellDef="let c of displayedColumns"> Workout </th>
+      <td mat-cell *matCellDef="let element of dataSource">
+        <span *ngFor="let w of element.workouts; let i = index">
+          {{ w.type }} <span *ngIf="i < element.workouts.length - 1">, </span>
+        </span>
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="minutes">
+      <th mat-header-cell *matHeaderCellDef="let c of displayedColumns"> Minutes </th>
+      <td mat-cell *matCellDef="let element of dataSource">
+        <span *ngFor="let w of element.workouts; let i = index">
+          {{ w.minutes }} <span *ngIf="i < element.workouts.length - 1">, </span>
+        </span>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row of dataSource; columns: displayedColumns;"></tr>
+  </table>
+  <hr>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="pagination">
+    <mat-paginator 
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 15, ]"
+    showFirstLastButtons
+    aria-label="Select page">
+    
+</mat-paginator>
+  </div>
+  <div class="card">
+   
+</div>
+</div>

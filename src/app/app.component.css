@@ -1,0 +1,10 @@
+body {
+   
+   
+  }
+  .health{
+    box-sizing: border-box;
+    background-image: linear-gradient(54deg, #fff2f5 -1%, #ebf3fd 74%);
+    margin: 15px;
+    padding: 60px;
+  }
